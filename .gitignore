@@ -1,0 +1,5 @@
+/forms/node_modules/
+/forms/.next
+/back/node_modules/
+/back/.env
+/back/prisma/generated/prisma/
