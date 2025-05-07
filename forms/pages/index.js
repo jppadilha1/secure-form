@@ -1,53 +1,67 @@
-// pages/register.js
-
+import api from "./axios.js";
 import { useEffect } from "react";
 
 export default function Register() {
   useEffect(() => {
     const form = document.getElementById("registerForm");
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const username = form.username.value;
       const email = form.email.value;
       const password = form.password.value;
 
-      console.log("Username:", username);
-      console.log("Email:", email);
-      console.log("Password:", password);
-
       form.username.value = "";
       form.email.value = "";
       form.password.value = "";
+
+      const response = await api.post("/create-user", {
+        username,
+        email,
+        password,
+      });
+
+      if (response.status == 201) {
+        alert("Por favor, verifique seu email na caixa de entrada");
+      }
     });
   }, []);
 
   return (
     <>
       <style>{`
+        body {
+          background-color: #ccc;
+        }
+
         .form-container {
           padding: 20px;
           background-color: #f5f5f5;
-          width: 300px;
+          width: 380px;
+          height: 320px;
           margin: 50px auto;
           border-radius: 8px;
           font-family: sans-serif;
         }
 
         .form-container input {
-          width: 90%;
+          width: 92%;
           padding: 8px;
           margin-bottom: 10px;
         }
 
         .form-container button {
-          width: 96%;
+          width: 98%;
           padding: 10px;
           background-color: teal;
           color: white;
           border: none;
           border-radius: 4px;
           cursor: pointer;
+        }
+        
+        .form-container button:hover {
+          background-color:rgb(11, 102, 102);
         }
 
         .form-container h1 {
