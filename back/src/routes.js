@@ -1,5 +1,6 @@
-import { server } from "./server";
+import { createUser } from "./route/create-user.js";
+import { server } from "./server.js";
 
-export function routes() {
-  //server.register()
+export async function routes() {
+  server.register(createUser);
 }
