@@ -13,4 +13,6 @@ model User {
   name    String?
   email   String   @unique
   password    String?
+  checked DateTime?
+  validation_id String @unique @default(uuid())
 }

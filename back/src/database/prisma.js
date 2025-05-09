@@ -1,3 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../database/generated/prisma/client.js";
 
-export const prisma = new PrismaClient({ log: ["query"] });
+const prisma = new PrismaClient({ log: ["query"] });
+
+export default prisma;
