@@ -30,7 +30,7 @@ export async function createUser() {
       from: process.env.EMAIL_ADDRESS,
       to: userCreated.email,
       subject: "Verifique seu e-mail para concluir o cadastro!",
-      text: `Para confirmar e fazer login, acesse o link: https://zany-goldfish-jp7p54pv65qhqvp6-3333.app.github.dev/confirm-email?token=${userCreated.validation_id}`,
+      text: `Para confirmar e fazer login, acesse o link: https://zany-goldfish-jp7p54pv65qhqvp6-3000.app.github.dev/api/confirm-user?token=${userCreated.validation_id}`,
     };
 
     const info = transporter.sendMail(options, (err, info) => {
