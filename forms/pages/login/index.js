@@ -1,37 +1,19 @@
-import api from "./axios.js";
+import api from "../axios.js";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-export default function Register() {
+export default function Login() {
   useEffect(() => {
-    const form = document.getElementById("registerForm");
+    const form = document.getElementById("loginForm");
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const username = form.username.value;
-      const email = form.email.value;
       const password = form.password.value;
+      console.log(username, email);
 
       form.username.value = "";
-      form.email.value = "";
       form.password.value = "";
-
-      const response = await api.post("/create-user", {
-        username,
-        email,
-        password,
-      });
-
-      if (response.status == 201) {
-        Swal.fire({
-          title: "Cadastro Realizado com Sucesso!",
-          text: "Verifique seu email na caixa de entrada.",
-          icon: "success",
-          confirmButtonText: "Ok",
-          confirmButtonColor: " #58bc82",
-          animation: true,
-        });
-      }
     });
   }, []);
 
@@ -84,18 +66,15 @@ export default function Register() {
       `}</style>
 
       <div className="form-container">
-        <h1>Cadastro</h1>
-        <form id="registerForm">
+        <h1>Login</h1>
+        <form id="loginForm">
           <label>Username:</label>
           <input type="text" name="username" required />
-
-          <label>Email:</label>
-          <input type="email" name="email" required />
 
           <label>Password:</label>
           <input type="password" name="password" required />
 
-          <button type="submit">Create Account</button>
+          <button type="submit">Enter</button>
         </form>
       </div>
     </>
