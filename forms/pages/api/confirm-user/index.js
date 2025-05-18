@@ -4,6 +4,11 @@ export default async function confirmUser(req, res) {
   const token = req.query.token;
 
   const response = await api.get(`/confirm-user?token=${token}`);
-  console.log(response.data);
-  return res.status(200).send("confirmado com sucesso");
+
+  if (response.status == 200) {
+    res.writeHead(302, { Location: "/login" });
+    res.end();
+  } else {
+    return res.status(400).json({ msg: "Erro ao validar seu email" });
+  }
 }
