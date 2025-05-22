@@ -1,6 +1,7 @@
 import { server } from "./../server.js";
 import prisma from "./../database/prisma.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export function loginUser() {
   server.post("/login", async (req, res) => {
@@ -13,11 +14,19 @@ export function loginUser() {
     await bcrypt.compare(password, user.password).then((result) => {
       const verify = result;
 
-      if (verify == true) {
-        return res.status(200).send("Existe esse usuário");
+      if (verify) {
+        const token = jwt.sign(
+          { id: user.id, name: user.name },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "1h",
+          }
+        );
+
+        return res.status(200).send({ msg: "Valid Credentials", token: token });
       }
     });
 
-    return res.status(400).send("Não Existe esse usuário");
+    return res.status(400).send("Invalid Credentials");
   });
 }
