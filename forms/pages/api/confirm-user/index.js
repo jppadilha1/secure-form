@@ -6,7 +6,7 @@ export default async function confirmUser(req, res) {
   const response = await api.get(`/confirm-user?token=${token}`);
 
   if (response.status == 200) {
-    res.writeHead(302, { Location: "/login" });
+    res.writeHead(301, { Location: "/login" });
     res.end();
   } else {
     return res.status(400).json({ msg: "Erro ao validar seu email" });

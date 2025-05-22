@@ -10,10 +10,41 @@ export default function Login() {
 
       const username = form.username.value;
       const password = form.password.value;
-      console.log(username, email);
 
       form.username.value = "";
       form.password.value = "";
+
+      try {
+        const response = await api.post("/login", {
+          username,
+          password,
+        });
+
+        if (response.data.token) {
+          const jwt = response.data.token;
+          const responseProtected = await fetch(
+            "https://zany-goldfish-jp7p54pv65qhqvp6-3000.app.github.dev//api/protected-route",
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+
+          if (responseProtected.status == 200) {
+            window.location.href = "/home";
+          }
+        }
+      } catch (e) {
+        Swal.fire({
+          title: "Não foi possível fazer login.",
+          icon: "error",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "rgb(100, 2, 2)",
+          animation: true,
+        });
+        console.error(e);
+      }
     });
   }, []);
 
