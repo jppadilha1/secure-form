@@ -10,6 +10,14 @@ export async function createUser() {
 
     const hashPassword = await bcrypt.hash(password, saltRounds);
 
+    const verifyName = await prisma.user.findFirst({
+      where: { name: username },
+    });
+
+    if (verifyName) {
+      return res.status(401).send();
+    }
+
     const userCreated = await prisma.user.create({
       data: {
         name: username,
