@@ -2,7 +2,22 @@ POST  http://localhost:3333/create-user
 Content-Type: application/json
 
 {
-    "username": "teste",
+    "username": "padilhadev",
     "email": "teste@gmail.com",
-    "password": 123
+    "password": "123"
 }
+
+###
+
+POST  http://localhost:3333/login
+Content-Type: application/json
+
+{
+    "username": "padilhadev",
+    "password": "123"
+}
+
+###
+
+GET https://zany-goldfish-jp7p54pv65qhqvp6-3000.app.github.dev/api/protected-route
+Authorization: "tokentest"

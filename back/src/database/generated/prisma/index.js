@@ -160,11 +160,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://local_user:local_password@localhost:5432/local_db?schema=public"
+        "value": null
       }
     }
   },
