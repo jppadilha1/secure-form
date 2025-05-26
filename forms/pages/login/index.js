@@ -23,7 +23,7 @@ export default function Login() {
         if (response.data.token) {
           const jwt = response.data.token;
           const responseProtected = await fetch(
-            "https://zany-goldfish-jp7p54pv65qhqvp6-3000.app.github.dev//api/protected-route",
+            "https://zany-goldfish-jp7p54pv65qhqvp6-3000.app.github.dev/api/protectedroute",
             {
               headers: {
                 Authorization: `Bearer ${jwt}`,
@@ -32,6 +32,13 @@ export default function Login() {
           );
 
           if (responseProtected.status == 200) {
+            const responseProtectedBody = await responseProtected.json();
+
+            localStorage.setItem(
+              "userPayload",
+              JSON.stringify(responseProtectedBody)
+            );
+
             window.location.href = "/home";
           }
         }
