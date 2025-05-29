@@ -3,6 +3,19 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function Login() {
+  try {
+    const payloadString = localStorage.getItem("userPayload");
+
+    const payload = JSON.parse(payloadString);
+
+    if (payload) {
+      window.location.href = "/home";
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
   useEffect(() => {
     const form = document.getElementById("loginForm");
     form.addEventListener("submit", async function (e) {
@@ -44,7 +57,7 @@ export default function Login() {
         }
       } catch (e) {
         Swal.fire({
-          title: "Não foi possível fazer login.",
+          title: "Unable to sign in.",
           icon: "error",
           confirmButtonText: "Ok",
           confirmButtonColor: "rgb(100, 2, 2)",
@@ -58,53 +71,67 @@ export default function Login() {
   return (
     <>
       <style>{`
-        body {
-          background-color: #212121;
-        }
+    body {
+      background-color: #212121;
+    }
 
-        .form-container {
-          color: #58bc82;
-          padding: 20px;
-          background-color: #212121;
-          width: 380px;
-          height: 320px;
-          margin: 50px auto;
-          border-radius: 8px;
-          font-family: sans-serif;
-        }
+    .form-container {
+      color: #58bc82;
+      padding: 20px;
+      background-color: #212121;
+      width: 380px;
+      height: auto;
+      margin: 50px auto;
+      border-radius: 8px;
+      font-family: sans-serif;
+    }
 
-        .form-container input {
-          width: 92%;
-          padding: 14px;
-          margin-bottom: 10px;
-          margin-top: 6px;
-          border-radius: 8px;
-          background-color: #efefef;
-        }
+    .form-container input {
+      width: 92%;
+      padding: 14px;
+      margin-bottom: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      background-color: #efefef;
+    }
 
-        .form-container button {
-          width: 100%;
-          padding: 14px;
-          background-color: #707070;
-          color: white;
-          font-weight: bold;
-          border: none;
-          border-radius: 16px;
-          cursor: pointer;
-          margin-top:10px;
-        }
-        
-        .form-container button:hover {
-          background-color: #58bc82;
-        }
+    .form-container button {
+      width: 100%;
+      padding: 14px;
+      background-color: #707070;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    .form-container button:hover {
+      background-color: #58bc82;
+    }
 
-        .form-container h1 {
-          text-align: center;
-        }
-      `}</style>
+    .form-container h1 {
+      text-align: center;
+    }
+
+    .signup-link {
+      display: block;
+      text-align: right;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #58bc82;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .signup-link:hover {
+      text-decoration: underline;
+    }
+  `}</style>
 
       <div className="form-container">
-        <h1>Login</h1>
+        <h1>Sign In</h1>
         <form id="loginForm">
           <label>Username:</label>
           <input type="text" name="username" required />
@@ -113,6 +140,10 @@ export default function Login() {
           <input type="password" name="password" required />
 
           <button type="submit">Enter</button>
+
+          <a href="/" className="signup-link">
+            Don't have an account? Sign up
+          </a>
         </form>
       </div>
     </>
